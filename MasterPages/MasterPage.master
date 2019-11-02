@@ -1,0 +1,197 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPages_MasterPage"  %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajax" %>
+
+<%@ Register src="../Controls/Footer.ascx" tagname="Footer" tagprefix="uc1" %>
+<%@ Register src="../Controls/HeaderLogo.ascx" tagname="HeaderLogo" tagprefix="uc2" %>
+<%@ Register src="../Controls/LogOutControl.ascx" tagname="LogoutLogo" tagprefix="ucL" %>
+
+
+<%@ Register src="../Controls/MenustripDemobyAnkush.ascx" tagname="MenustripDemobyAnkush" tagprefix="uc4" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+  <script type="text/javascript" src="../JS/dhtml.js"></script>
+  <script type="text/javascript" src="../Jscript/jquery-1.4.1.min.js"></script>
+    <title>Inventory Management</title>    
+       <%--Website Translator --%> 
+    <meta name="google-translate-customization" content="3e0cb3e18d29f540-f493d4318889dfb2-g105f07541dd72810-14"></meta>
+    <%--Website Translator --%>
+        
+    <%--Logo For WebSite--%>       
+    <link rel="icon" href ="../Images/MasterPages/Revodynamics-Icon1-large.ico"/> 
+    <%--Logo For WebSite--%>  
+   
+    <%--Avoide Flickering --%> 
+    <meta http-equiv="Page-Enter" content="blendTrans(Duration=0)"/>
+    <meta http-equiv="Page-Exit" content="blendTrans(Duration=0)"/>
+    <%--Avoide Flickering --%> 
+
+    <%--Use For IE7 Compatibilty--%>   
+    <meta http-equiv ="X-UA-Compatible" content ="IE=EmulateIE7" />
+    <%--Use For IE7 Compatibilty--%>
+    
+    <%--Strict Force Browser that It is HTML Page--%>   
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <%--Strict Force Browser that It is HTML Page--%>   
+    
+    <meta http-equiv="content-language" content="en"/>
+    <meta name="robots" content="all,follow"/>
+    <meta name="author" lang="en" content="All: Your name [www.url.com]; e-mail: info@url.com"/>
+    <meta name="copyright" lang="en" content="Webdesign: Nuvio [www.nuvio.cz]; e-mail: ahoj@nuvio.cz"/>
+    <meta name="description" content="..."/>
+    <meta name="keywords" content="..."/>
+
+
+    <style type="text/css">
+
+.modal
+{
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: Black;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    -moz-opacity: 0.8;
+}
+.center
+{
+    z-index: 1000;
+    margin: 300px auto;
+    padding: 10px;
+    width: 130px;
+    background-color: White;
+    border-radius: 10px;
+    filter: alpha(opacity=100);
+    opacity: 1;
+    -moz-opacity: 1;
+}
+.center img
+{
+    height: 128px;
+    width: 128px;
+}
+</style>
+
+   <%--Js File For Comman Functions--%>  
+   <script type="text/javascript" src="../Jscript/CommanFunction.js"></script>
+   <%--Js File For Comman Functions--%> 
+   
+       <%--Style Sheet Link--%>
+    <link rel="stylesheet" href="../StyleSheet/style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../StyleSheet/StyleSheet.css"/>
+    <link rel="stylesheet" type="text/css" href="../StyleSheet/MenuStyle.css"/>
+       <%--Style Sheet Link--%>
+       
+       <%--Print Grid Through Javascript--%>
+       <script type="text/javascript">
+     
+        function CallPrint(strid)
+      {
+          var prtContent = document.getElementById(strid);
+          var WinPrint = window.open('','','letf=0,top=0,width=800,height=700,toolbar=0,scrollbars=1,status=0');
+          WinPrint.document.write(prtContent.innerHTML);
+          WinPrint.document.close();
+          WinPrint.focus();
+          WinPrint.print();
+          WinPrint.close();
+
+       }
+        </script>
+       <%--Print Grid Through Javascript--%>
+    <%--Close model Popup Extendor on esc key press--%>
+        <script type="text/javascript">
+            //closes the popup by pressing the esc button on the keyboard
+            document.onkeyup = Esc;
+            function Esc()
+             {
+                var KeyID = event.keyCode;
+                if (KeyID == 27) {
+                    if ($find("PCPBcode")) {
+                        $find("PCPBcode").hide();
+                    }
+                    if ($find("PCChnagePwd")) {
+                        $find("PCChnagePwd").hide();
+                    }                             
+                }
+            }
+        </script>        
+       <%--Close model Popup Extendor on esc key press--%> 
+</head>
+<body>
+    <form id="form1" runat="server">
+
+
+
+   
+
+
+
+    <div class="content">
+        <!-- Header -->
+		    <uc2:HeaderLogo  ID="HeaderLogo1" runat="server" />
+	    <!-- Header -->
+		 <!-- Navigation -->
+		  <uc4:MenustripDemobyAnkush ID="MenustripDemobyAnkush1" runat="server" />
+		  
+		  <!-- Navigation -->
+		  <ucL:LogoutLogo ID="Logout" runat="server" />
+		<div class="search_field">
+				<div class="search_form">				
+				 <!-- Title -->
+				 <p>
+			 <asp:ContentPlaceHolder ID="SearchContent" runat="server">
+                
+            </asp:ContentPlaceHolder>		
+            </p>				    
+		    <!-- Title -->			   
+				</div>
+			<%--<p>Back To <a href="../Masters/Home.aspx">Home</a> or <a href="../Default.aspx">
+                Logout</a></p>--%>		    
+			</div>
+		<div class="Oleft">
+			 <!-- Title -->
+			 <h2><asp:ContentPlaceHolder ID="Title" runat="server">
+                
+            </asp:ContentPlaceHolder>				
+		    </h2>	
+		    <!-- Title -->
+		    
+		    <!-- Body -->
+
+            <div style="margin-left:40%;">
+             <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                    <ProgressTemplate>
+                       <div id="progressBackgroundFilter"></div>
+                                <div id="processMessage ">          
+                                                               
+                                <span class="SubTitle">Please Wait....!!! </span>                       
+                                    <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/updateprogress.gif" />                                
+                                </div> 
+                    </ProgressTemplate>
+                </asp:UpdateProgress> 
+                  </div>
+              
+		      <asp:ContentPlaceHolder ID="Body" runat="server">		      
+		      
+              </asp:ContentPlaceHolder>
+		    <!-- Body -->
+		</div>		
+		 <!-- Footer -->
+		 <uc1:Footer ID="Footer1" runat="server" />
+		  <!-- Footer -->
+		  
+
+    
+</div>
+
+
+</form>
+</body>
+</html>

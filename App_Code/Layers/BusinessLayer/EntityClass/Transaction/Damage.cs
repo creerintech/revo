@@ -1,0 +1,231 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+namespace MayurInventory.EntityClass
+{
+    public class Damage
+    {
+        #region Column Constant
+
+        //Master
+        public const string _Action = "@Action";
+        public const string _DamageId = "@DamageId";
+        public const string _DamageNo = "@DamageNo";
+        public const string _DamageDate = "@DamageDate";
+        public const string _PreparedBy = "@PreparedBy";
+        public const string _InwardId = "@InwardId";
+        public const string _DamagedThrough = "@DamagedThrough";
+        public const string _UserId = "@UserId";
+        public const string _strCond = "@strCond";
+        public const string _LoginDate = "@LoginDate";
+        public const string _DebitNote = "@DebitNote";
+
+        //Details
+        public const string _DamageDtlId = "@DamageDtlId";
+        public const string _ItemId = "@ItemId";
+        public const string _InwardQty = "@InwardQty";
+        public const string _InwardRate = "@InwardRate";
+        public const string _DamageQty = "@DamageQty";
+        public const string _Reason = "@Reason";
+        public const string _ConversionUnitId = "@ConversionUnitId";
+        //ItemDesc
+        public const string _ItemDesc = "@ItemDesc";
+        //StockDetails
+        public const string _StockDate= "@StockDate";
+        public const string _StockLocationID= "@StockLocationID";
+        public const string _StockUnitId= "@StockUnitId";
+      
+        #endregion
+
+        #region Defination
+
+        //Master
+        private Int32 m_Action;
+        public Int32 Action
+        {
+            get { return m_Action; }
+            set { m_Action = value; }
+        }
+
+        private Int32 m_DamageId;
+        public Int32 DamageId
+        {
+            get { return m_DamageId; }
+            set { m_DamageId = value; }
+        }
+
+        private String m_DamageNo;
+        public String DamageNo
+        {
+            get { return m_DamageNo; }
+            set { m_DamageNo = value; }
+        }
+
+        private DateTime m_Date;
+        public DateTime DamageDate
+        {
+            get { return m_Date; }
+            set { m_Date = value; }
+        }
+
+        private Int32 m_PreparedBy;
+        public Int32 PreparedBy
+        {
+            get { return m_PreparedBy; }
+            set { m_PreparedBy = value; }
+        }
+
+        private Int32 m_InwardId;
+        public Int32 InwardId
+        {
+            get { return m_InwardId; }
+            set { m_InwardId = value; }
+        }
+
+        private Int32 m_DamagedThrough;
+        public Int32 DamagedThrough
+        {
+            get { return m_DamagedThrough; }
+            set { m_DamagedThrough = value; }
+        }   
+
+        private Int32 m_UserID;
+        public Int32 UserID
+        {
+            get { return m_UserID; }
+            set { m_UserID = value; }
+        }
+
+        private String m_strCond;
+        public String StrCond
+        {
+            get { return m_strCond; }
+            set { m_strCond = value; }
+        }
+
+        private DateTime m_LoginDate;
+        public DateTime LoginDate
+        {
+            get { return m_LoginDate; }
+            set { m_LoginDate = value; }
+        }
+
+        //Details
+        private Int32 m_DamageDtlId;
+        public Int32 DamageDtlId
+        {
+            get { return m_DamageDtlId; }
+            set { m_DamageDtlId = value; }
+        }
+
+        private Int32 m_ItemId;
+        public Int32 ItemId
+        {
+            get { return m_ItemId; }
+            set { m_ItemId = value; }
+        }
+
+        private Decimal m_InwardQty;
+        public Decimal InwardQty
+        {
+            get { return m_InwardQty; }
+            set { m_InwardQty = value; }
+        }
+
+
+        private Decimal m_InwardRate;
+        public Decimal InwardRate
+        {
+            get { return m_InwardRate; }
+            set { m_InwardRate = value; }
+        }
+
+        private Decimal m_DamageQty;
+        public Decimal DamageQty
+        {
+            get { return m_DamageQty; }
+            set { m_DamageQty = value; }
+        }
+       
+        private String m_Reason;
+        public String Reason
+        {
+            get { return m_Reason; }
+            set { m_Reason = value; }
+        }
+
+        private Int32 m_ConversionUnitId;
+        public Int32 ConversionUnitId
+        {
+            get { return m_ConversionUnitId; }
+            set { m_ConversionUnitId = value; }
+        }
+        //ItemDesc
+        private String m_ItemDesc;
+        public String ItemDesc
+        {
+            get { return m_ItemDesc; }
+            set { m_ItemDesc= value; }
+        }
+
+        //private bool m_IsDeleted;
+
+        //public bool IsDeleted
+        //{
+        //    get { return m_IsDeleted; }
+        //    set { m_IsDeleted = value; }
+        //}
+
+        private DateTime m_StockDate;
+        public DateTime StockDate
+        {
+            get { return m_StockDate; }
+            set { m_StockDate = value; }
+        }
+
+        private Int32 m_StockLocationID;
+        public Int32 StockLocationID
+        {
+            get { return m_StockLocationID; }
+            set { m_StockLocationID = value; }
+        }
+
+        private Int32 m_StockUnitId;
+        public Int32 StockUnitId
+        {
+            get { return m_StockUnitId; }
+            set { m_StockUnitId = value; }
+        }
+
+        private Int32 m_DebitNote;
+        public Int32 DebitNote
+        {
+            get { return m_DebitNote; }
+            set { m_DebitNote = value; }
+        }
+      
+        #endregion
+
+        #region Strored Proc
+        public const string SP_DamageMaster = "SP_DamageMaster";
+        public const string SP_DamageMaster1 = "SP_DamageMaster1";
+        public const string SP_DamageMasterReport = "SP_DamageMasterReport";
+        
+        #endregion
+        public Damage()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+    }
+}

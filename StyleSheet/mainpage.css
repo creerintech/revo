@@ -1,0 +1,68 @@
+﻿body
+{/*
+	background-color: #FFFFFF;*/
+	
+}
+div#MainMenuDiv
+{ 
+	 vertical-align: middle; 
+	 text-align: center; 
+}
+div#MasterDiv
+{ 
+	/* vertical-align: middle; 
+	 text-align: center; */
+}
+div#PageHeader
+{
+	background-color: #333333;
+	vertical-align: middle;
+	padding-top: 35px;
+	height: 40px;
+	font-family: Arial;
+	font-size: large;
+	color: #cccccc;
+	text-align: center;
+	font-weight: bold;
+}
+div#PageTitle
+{
+	font-family: Arial;
+	font-size: 14px;
+	color: #cccccc;
+	text-align: center;
+	font-weight: bold;
+	height: 25px;
+	background-color: #333333;
+	vertical-align: middle;
+	padding-top: 5px;
+}
+div#MainMenuTitle
+{
+	font-family: Arial;
+	font-size: 14px;
+	color: #cccccc;
+	text-align: center;
+	font-weight: bold;
+	height: 25px;
+	background-color: #333333;
+}
+
+div#Footer
+{
+	background-color: #333333;
+	vertical-align: middle;
+	padding-top: 12px; /*--old Padding 22px--*/
+	height: 25px; /*--old Padding 40px--*/
+	font-family: 'Arial Unicode MS';
+	font-size: small;
+	color: #cccccc;
+	text-align: center; /*This Style Is Imp Used To set Footer At Bottom 
+	
+	position:fixed; or position:absolute;*/
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	margin-top: 10px;
+	
+}

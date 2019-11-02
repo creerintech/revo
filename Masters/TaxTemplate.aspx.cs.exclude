@@ -1,0 +1,394 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using System.Threading;
+
+using MayurInventory.EntityClass;
+using MayurInventory.DALSQLHelper;
+using MayurInventory.DB;
+using MayurInventory.Utility;
+using MayurInventory.BussinessLayer;
+
+public partial class Masters_TaxTemplate : System.Web.UI.Page
+{
+    #region [Private Variable]
+    CommanFunction CommFun = new CommanFunction();
+
+    DataSet Ds = new DataSet();
+    private string StrCondition = string.Empty;
+    private string StrError = string.Empty;
+
+    TaxTemplate Entity_Call = new TaxTemplate();
+    DMTaxTemplate Obj_Call = new DMTaxTemplate();
+    public static int countPage = 0;
+    private static bool FlagAdd = false, FlagDel = false, FlagEdit = false;
+    int str = 0;
+    decimal PerAssign = 0, TaxPer = 0;
+    #endregion
+
+    #region[User Defined Methods]
+
+    private void MakeEmptyForm()
+    {
+        ViewState["EditID"] = null;
+
+        if (!FlagAdd)
+            BtnSave.Visible = true;
+        BtnUpdate.Visible = false;
+        BtnDelete.Visible = false;
+
+        //   txtBrand.Text = string.Empty;
+        txtTaxName.Text = string.Empty;
+        txtTaxPer.Text = string.Empty;
+        txtEffectiveDate.Text = DateTime.Now.ToString("dd MMM yyyy"); 
+        txtSearch.Text = string.Empty;
+        ReportGrid(StrCondition);
+
+      
+
+    }
+    private void GetEditRecord()
+    {
+        if (Ds.Tables.Count > 0 && Ds.Tables[0].Rows.Count > 0)
+        {
+            //  txtBrand.Text = Ds.Tables[0].Rows[0]["Brands"].ToString();
+            txtTaxName.Text = Ds.Tables[0].Rows[0]["TaxName"].ToString();
+            txtTaxPer.Text = Ds.Tables[0].Rows[0]["TaxPer"].ToString();
+            txtEffectiveDate.Text = Ds.Tables[0].Rows[0]["EffectiveDate"].ToString();
+
+            //   txtBrand.Focus();
+            MakeControlEmpty();
+
+        }
+    }
+    private void MakeControlEmpty()
+    {
+        BtnSave.Visible = false;
+        if (!FlagEdit)
+            BtnUpdate.Visible = true;
+        if (!FlagDel)
+            BtnDelete.Visible = true;
+    }
+
+
+
+    private void ReportGrid(string strCondition)
+    {
+        try
+        {
+            //Brands
+
+             Ds = Obj_Call.GetTax(strCondition, out StrError);
+            if (Ds.Tables.Count > 0)
+            {
+                GridRate.DataSource = Ds.Tables[0];
+                GridRate.DataBind();
+            }
+            //txtBrands.Focus();
+
+
+            if (Ds.Tables.Count > 0 && Ds.Tables[0].Rows.Count > 0)
+            {
+                ViewState["CurrentTable1"] = Ds.Tables[0];
+
+                GrdReport.DataSource = Ds.Tables[0];
+                GrdReport.DataBind();
+
+            }
+            else
+            {
+                GrdReport.DataSource = null;
+                GrdReport.DataBind();
+            }
+            //Obj_Call = null;
+            // DS = null;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    [System.Web.Services.WebMethodAttribute(), System.Web.Script.Services.ScriptMethodAttribute()]
+    public static string[] GetCompletionList(string prefixText, int count, string contextKey)
+    {
+        DMTaxTemplate Obj_StkLoc = new DMTaxTemplate();
+        String[] SearchList = Obj_StkLoc.GetSuggestedRecord(prefixText);
+        return SearchList;
+    }
+
+    //User Right Function===========
+    public void CheckUserRight()
+    {
+        try
+        {
+            #region [USER RIGHT]
+            //Checking Session Varialbels========
+            if (Session["UserName"] != null && Session["UserRole"] != null)
+            {
+                //Checking User Role========
+                if (!Session["UserRole"].Equals("Administrator"))
+                {
+                    //Checking Right of users=======
+
+                    System.Data.DataSet dsChkUserRight = new System.Data.DataSet();
+                    System.Data.DataSet dsChkUserRight1 = new System.Data.DataSet();
+                    dsChkUserRight1 = (DataSet)Session["DataSet"];
+
+                    DataRow[] dtRow = dsChkUserRight1.Tables[1].Select("FormName ='Tax Master'");
+                    if (dtRow.Length > 0)
+                    {
+                        DataTable dt = dtRow.CopyToDataTable();
+                        dsChkUserRight.Tables.Add(dt);// = dt.Copy();
+                    }
+                    if (Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["ViewAuth"].ToString()) == false && Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["AddAuth"].ToString()) == false &&
+                        Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["DelAuth"].ToString()) == false && Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["EditAuth"].ToString()) == false)
+                    {
+                        Response.Redirect("~/Masters/NotAuthUser.aspx");
+                    }
+                    //Checking View Right ========                    
+                    if (Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["ViewAuth"].ToString()) == false)
+                    {
+                        GrdReport.Visible = false;
+                    }
+                    //Checking Add Right ========                    
+                    if (Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["AddAuth"].ToString()) == false)
+                    {
+                        BtnSave.Visible = false;
+                        FlagAdd = true;
+
+                    }
+                    //Checking Print Right ========                    
+                    if (Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["PrintAuth"].ToString()) == false)
+                    {
+
+                    }
+                    //Edit /Delete Column Visible ========
+                    if (Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["DelAuth"].ToString()) == false && Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["EditAuth"].ToString()) == false)
+                    {
+                        BtnDelete.Visible = false;
+                        BtnUpdate.Visible = false;
+                        FlagDel = true;
+                        FlagEdit = true;
+                    }
+                    else
+                    {
+                        //Checking Delete Right ========
+                        if (Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["DelAuth"].ToString()) == false)
+                        {
+                            BtnDelete.Visible = false;
+                            FlagDel = true;
+                        }
+
+                        //Checking Edit Right ========
+                        if (Convert.ToBoolean(dsChkUserRight.Tables[0].Rows[0]["EditAuth"].ToString()) == false)
+                        {
+                            BtnUpdate.Visible = false;
+                            FlagEdit = true;
+                        }
+                    }
+                    dsChkUserRight.Dispose();
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+            #endregion
+        }
+        catch (ThreadAbortException)
+        {
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+    //User Right Function===========
+
+    #endregion
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            CheckUserRight();
+           MakeEmptyForm();
+        }
+    }
+    #region ButtonEvent
+    protected void BtnSave_Click(object sender, EventArgs e)
+    {
+        int Insert = 0, brncnt = 1;
+        txtTaxName.Text = txtTaxName.Text.ToUpper();
+        string BrandCh = string.Empty, BCode = string.Empty;
+       
+        bool flag = false;
+        try
+        {
+
+          
+                Entity_Call.TaxName =txtTaxName.Text;
+                Entity_Call.TaxPer =txtTaxPer.Text;
+                TaxPer = Convert.ToDecimal(txtTaxPer.Text);
+                PerAssign = (TaxPer / 100) + 1;
+                Entity_Call.TaxAmt = PerAssign.ToString();
+                Entity_Call.EffectiveDate =Convert.ToDateTime(txtEffectiveDate.Text);
+                Entity_Call.CreatedByID = Convert.ToInt32(Session["UserId"]);
+                Entity_Call.CreatedDate = DateTime.Now;
+                Entity_Call.IsDeleted = false;
+
+                Insert = Obj_Call.InsertTax(ref Entity_Call, out StrError);
+
+                if (Insert != 0)
+                {
+                    CommFun.ShowPopUpMsg("Record Saved Successfully", this.Page);
+                    MakeEmptyForm();
+                }
+            }
+        
+
+        catch (Exception ex)
+        {
+
+            CommFun.ShowPopUpMsg(ex.Message, this.Page);
+        }
+    }
+    protected void BtnUpdate_Click(object sender, EventArgs e)
+    {
+        int hide = Convert.ToInt32(hiddenbox.Value);
+
+        int Insert = 0, brncnt = 1;
+        txtTaxName.Text = txtTaxName.Text.ToUpper();
+        string BrandCh = string.Empty, BCode = string.Empty;
+        bool flag = false;
+        try
+        {
+
+                     Entity_Call.TaxId = Convert.ToInt32(ViewState["EditID"]);
+                    Entity_Call.TaxName = txtTaxName.Text;
+                    Entity_Call.TaxPer = txtTaxPer.Text;
+              TaxPer =Convert.ToDecimal( txtTaxPer.Text);
+              PerAssign = (Convert.ToDecimal(TaxPer) / 100) + 1;
+                    Entity_Call.TaxAmt =PerAssign.ToString();
+                    Entity_Call.EffectiveDate = Convert.ToDateTime(txtEffectiveDate.Text);
+                    Entity_Call.UpdatedByID = Convert.ToInt32(Session["UserId"]);
+                    Entity_Call.UpdatedDate = DateTime.Now;
+                    Entity_Call.IsDeleted = false;
+
+                    Insert = Obj_Call.UpdateTax(ref Entity_Call, out StrError);
+
+                    if (Insert != 0)
+                    {
+                        CommFun.ShowPopUpMsg("Record Updated Successfully", this.Page);
+                        MakeEmptyForm();
+                    }
+                }
+            
+        
+        catch (Exception ex)
+        {
+            CommFun.ShowPopUpMsg(ex.Message, this.Page);
+        }
+    }
+    protected void BtnDelete_Click(object sender, EventArgs e)
+    {
+        int hide = Convert.ToInt32(hiddenbox.Value);
+        try
+        {
+            if (hide == 0)
+            {
+                if (ViewState["EditID"] != null)
+                {
+                    Entity_Call.TaxId = Convert.ToInt32(ViewState["EditID"]);
+                    Entity_Call.DeletedByID = Convert.ToInt32(Session["UserID"]);
+                    Entity_Call.DeletedDate = DateTime.Now;
+                    Entity_Call.IsDeleted = true;
+
+                    int iDelete = Obj_Call.DeleteTax(ref Entity_Call, out StrError);
+                    if (iDelete != 0)
+                    {
+                        CommFun.ShowPopUpMsg("Record Deleted Successfully..!", this.Page);
+                        MakeEmptyForm();
+                    }
+                }
+                Entity_Call = null;
+                Obj_Call = null;
+            }
+        }
+        catch (Exception ex)
+        {
+
+            CommFun.ShowPopUpMsg(ex.Message, this.Page);
+        }
+    }
+    protected void BtnCancel_Click(object sender, EventArgs e)
+    {
+        MakeEmptyForm();
+    } 
+    #endregion
+
+    #region Event
+    protected void txtSearch_TextChanged(object sender, EventArgs e)
+    {
+        StrCondition = txtSearch.Text.Trim();
+        StrCondition = StrCondition.Replace("[", @"\[");
+        ReportGrid(StrCondition);
+    }
+    protected void hdnValue_ValueChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Convert.ToInt32(((HiddenField)sender).Value) != 0)
+            {
+                ViewState["EditID"] = Convert.ToInt32(((HiddenField)sender).Value);
+              
+                Ds = Obj_Call.GetTaxForEdit(Convert.ToInt32(((HiddenField)sender).Value), out StrError);
+                GetEditRecord();
+            }
+        }
+        catch (Exception ex)
+        {
+            CommFun.ShowPopUpMsg(ex.Message, this.Page);
+        }
+    }
+    #endregion
+
+    #region GridEvent
+    protected void GrdReport_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        try
+        {
+            switch (e.CommandName)
+            {
+                case ("Select"):
+                    {
+                        if (Convert.ToInt32(e.CommandArgument) != 0)
+                        {
+                            ViewState["EditID"] = Convert.ToInt32(e.CommandArgument);
+                            if (ViewState["EditID"] != null)
+                            {
+                                Ds = Obj_Call.GetTaxForEdit(Convert.ToInt32(e.CommandArgument), out StrError);
+
+                                GetEditRecord();
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            CommFun.ShowPopUpMsg(ex.Message, this.Page);
+        }
+    } 
+    #endregion
+}

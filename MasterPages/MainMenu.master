@@ -1,0 +1,86 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MainMenu.master.cs" Inherits="MastersPages_MainMenu" %>
+
+<%@ Register src="../Controls/MainMenuHeader.ascx" tagname="MainMenuHeader" tagprefix="uc1" %>
+
+<%@ Register src="../Controls/FooterMainMenu.ascx" tagname="Footer1" tagprefix="uc4" %>
+
+<%@ Register src="../Controls/LogOutControl.ascx" tagname="Logout" tagprefix="uc3" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <%--Avoide Flickering --%> 
+    <meta http-equiv="Page-Enter" content="blendTrans(Duration=0)"/>
+    <meta http-equiv="Page-Exit" content="blendTrans(Duration=0)"/>
+    <%--Avoide Flickering --%> 
+    
+    <%--Use For IE7 Compatibilty--%>   
+    <meta http-equiv ="X-UA-Compatible" content ="IE=EmulateIE7" />
+    <%--Use For IE7 Compatibilty--%>   
+    
+   <%--Logo For WebSite--%>       
+    <link rel="icon" href ="../Images/MasterPages/Revodynamics-Icon1-large.ico"/> 
+    <%--Logo For WebSite--%>  
+    
+    <%--Style Sheet Link--%>
+    <link rel="Stylesheet" href="../StyleSheet/mainpage.css" />
+    <link rel="Stylesheet" href="../StyleSheet/StyleSheet.css" />
+    <link rel="Stylesheet" href="../StyleSheet/style.css" />
+    <%--Style Sheet Link--%>
+    
+    <%--Js File For Comman Functions--%>  
+   <script type="text/javascript" src="../Jscript/CommanFunction.js"></script>
+   <%--Js File For Comman Functions--%>
+
+    <title>Revo Dynamics</title>   
+</head>
+<body style="margin-top:0px; margin-left:0px; margin-right:0px; margin-left:0px;">
+    <form id="form1" runat="server">    
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td>
+    <uc1:MainMenuHeader ID="MainMenuHeader1" runat="server" />            
+        
+    <div id="MainMenuTitle">
+    <table width="100%">
+          <tr>
+          <td>
+          <asp:ContentPlaceHolder id="MainMenuTitleContent" runat="server">        
+        </asp:ContentPlaceHolder>  
+              
+          </td>
+          </tr>          
+       
+          </table>
+    
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td height="410px">
+    <div id="MainMenuDiv">
+    <asp:ContentPlaceHolder id="MainMenuBody" runat="server">        
+        </asp:ContentPlaceHolder>
+        </div> 
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <uc4:Footer1 ID="Footer1" runat="server" />    
+        
+    </td>
+    </tr>
+    
+    </table>
+     
+                  
+               
+                
+    
+    
+    </form>
+</body>
+</html>

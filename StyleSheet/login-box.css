@@ -1,0 +1,181 @@
+
+#login-box 
+{	
+	width:333px;
+	height: 352px;
+	padding: 58px 76px 0 76px;
+	color: #ebebeb;
+	font: 12px Arial, Helvetica, sans-serif;
+	background: url(../images/Icon/login-box-backg.png) ;
+}
+
+#login-box img {
+	border:none;
+}
+
+#login-box h2 {
+	padding:0;
+	margin:0;
+	color: #ebebeb;
+	font: bold 44px "Calibri", Arial;
+
+}
+
+
+#login-box-name {
+	float: left;
+	display:inline;
+	width:80px;
+	text-align: right;
+	padding: 0px 10px 0 0;
+	margin:0 0 10px 0;
+}
+
+#login-box-Pass {
+	float: left;
+	display:inline;
+	width:80px;
+	text-align: right;
+	padding: 0px 10px 0 0;
+	margin:0 0 10px 0;
+}
+#login-box-Site {
+	float: left;
+	display:inline;
+	width:80px;
+	text-align: right;
+	padding: 0px 10px 0 0;
+	margin:0 0 10px 0;
+}
+
+#login-box-Namefield {
+	float: left;
+	display:inline;
+	width:230px;
+	margin:0;
+	margin:0 0 7px 0;
+}
+
+#login-box-Passfield {
+	float: left;
+	display:inline;
+	width:230px;
+	margin:0;
+	margin:0 0 7px 0;
+}
+
+#login-box-DDLLoc {
+	float: left;
+	display:inline;
+	width:230px;
+	height:28px;
+	margin:0;
+	margin:0 0 7px 0;
+}
+
+.form-login  {
+	width: 205px;
+	padding: 10px 4px 6px 3px;
+	border: 1px solid #0d2c52;
+	background-color:#1e4f8a;
+	font-size: 16px;
+	color: #ebebeb;
+}
+
+
+.login-box-options  {
+	clear:both;
+	padding-left:90px;
+	font-size: 11px;
+}
+
+.login-box-options a {
+	color: #ebebeb;
+	font-size: 11px;
+}
+
+/* CSS Document */
+.gallery
+	{
+			width: 700px;
+            cursor: default;
+            list-style: none;
+        }	
+
+.gallery li
+        {
+            background: #eee;
+            border-color: #ddd #bbb #aaa #ccc;
+            border-style: solid;
+            border-width: 1px;
+            color: inherit;
+            display: inline;
+            float: left;
+            margin: 3px;
+            padding: 5px;
+            position: relative;
+        }
+                       
+.sliderTexti
+{
+	text-align :left ;
+	float:left;		
+	font-family:"Arial"; 
+	font-size:10pt; 
+	line-height:140%; 
+	color:#5c5f5d;
+	
+	}
+.WaterMarkedTextBox
+        {                       
+            height: 16px;
+            width: 168px;
+            padding: 2px 2 2 2px;            			             
+            color: #4A708B;
+            font-size: 10pt;
+            text-align: left;
+        }
+.TxtApp
+{
+	border-style: solid;
+	border-width: 1px; /*background-color: Silver;*/
+	padding: 2px 10px 2px 10px;
+	border-color: #002742;	
+	behavior: url( '../Style/border-radius.htc' );
+	font-family: 'helvetica';
+	font-size: 12px;
+	height: 150px;
+	width:687px;	
+	color: #002742;
+	}
+	
+.imgBtn:Focus
+{
+	color: #900;
+	background: #FF0;
+	font-weight: bold;
+	border: 1px solid #900;	
+	}
+.Label
+{
+	font-family: helvetica;
+	font-size: 12px;
+	text-align: right;
+	color: #000080	 !important;
+	width: 35%;    
+	vertical-align:top;            
+}
+.FileUpload_Rounded
+{	
+	border-style: solid;
+	border-width: 1px; /*background-color: Silver;*/	
+	border-color: #002742;	
+	font-family: helvetica;
+	font-size: 12px;
+	color: #002442;	
+	
+}
+*{padding:0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	}

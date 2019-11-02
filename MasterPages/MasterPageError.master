@@ -1,0 +1,133 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageError.master.cs" Inherits="MasterPages_MasterPageError" %>
+
+<%@ Register src="../Controls/HeaderLogoAccess.ascx" tagname="Header" tagprefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Inventory Management</title>     
+       <%--Website Translator --%> 
+    <meta name="google-translate-customization" content="3e0cb3e18d29f540-f493d4318889dfb2-g105f07541dd72810-14"></meta>
+    <%--Website Translator --%>
+        
+ <%--Logo For WebSite--%>       
+    <link rel="icon" href ="../Images/MasterPages/Revodynamics-Icon1-large.ico"/> 
+    <%--Logo For WebSite--%>  
+    
+    <%--Avoide Flickering --%> 
+    <meta http-equiv="Page-Enter" content="blendTrans(Duration=0)"/>
+    <meta http-equiv="Page-Exit" content="blendTrans(Duration=0)"/>
+    <%--Avoide Flickering --%> 
+
+    <%--Use For IE7 Compatibilty--%>   
+    <meta http-equiv ="X-UA-Compatible" content ="IE=EmulateIE7" />
+    <%--Use For IE7 Compatibilty--%>
+    
+    <%--Strict Force Browser that It is HTML Page--%>   
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <%--Strict Force Browser that It is HTML Page--%>   
+    
+    <meta http-equiv="content-language" content="en"/>
+    <meta name="robots" content="all,follow"/>
+    <meta name="author" lang="en" content="All: Your name [www.url.com]; e-mail: info@url.com"/>
+    <meta name="copyright" lang="en" content="Webdesign: Nuvio [www.nuvio.cz]; e-mail: ahoj@nuvio.cz"/>
+    <meta name="description" content="..."/>
+    <meta name="keywords" content="..."/>
+
+   <%--Js File For Comman Functions--%>  
+   <script type="text/javascript" src="../Jscript/CommanFunction.js"></script>
+   <%--Js File For Comman Functions--%> 
+   
+       <%--Style Sheet Link--%>
+    <link rel="stylesheet" href="../StyleSheet/style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../StyleSheet/StyleSheet.css"/>
+    <link rel="stylesheet" type="text/css" href="../StyleSheet/MenuStyle.css"/>
+       <%--Style Sheet Link--%>
+       
+       <%--Print Grid Through Javascript--%>
+       <script type="text/javascript">
+        function CallPrint(strid)
+      {
+          var prtContent = document.getElementById(strid);
+          var WinPrint = window.open('','','letf=0,top=0,width=800,height=700,toolbar=0,scrollbars=1,status=0');
+          WinPrint.document.write(prtContent.innerHTML);
+          WinPrint.document.close();
+          WinPrint.focus();
+          WinPrint.print();
+          WinPrint.close();
+
+       }
+        </script>
+       <%--Print Grid Through Javascript--%>
+    <%--Close model Popup Extendor on esc key press--%>
+        <script type="text/javascript">
+            //closes the popup by pressing the esc button on the keyboard
+            document.onkeyup = Esc;
+            function Esc()
+             {
+                var KeyID = event.keyCode;
+                if (KeyID == 27) {
+                    if ($find("PCPBcode")) {
+                        $find("PCPBcode").hide();
+                    }
+                    if ($find("PCChnagePwd")) {
+                        $find("PCChnagePwd").hide();
+                    }                             
+                }
+            }
+        </script>        
+       <%--Close model Popup Extendor on esc key press--%> 
+          <%--SlideShow--%> 
+      
+       <%--SlideShow--%> 
+</head>
+<body >
+    <form id="form1" runat="server">
+    <div class="content">
+        <!-- Header -->
+	    <!-- Header -->
+		 <!-- Navigation -->
+		 	   	 <uc1:Header ID="Header" runat="server" />
+		  <!-- Navigation -->
+		  <!-- Navigation -->
+		  <!-- Navigation -->
+		  
+		<div class="search_field">
+				<div class="search_form">				
+				 <!-- Title -->
+				 <p>
+			 <asp:ContentPlaceHolder ID="SearchContent" runat="server">
+                
+            </asp:ContentPlaceHolder>		
+            </p>				    
+		    <!-- Title -->			   
+		    </div>
+			<%--<p>Back To <a href="../Masters/Home.aspx">Home</a> or <a href="../Default.aspx">
+                Logout</a></p>--%>
+			</div>
+		<div  width="100%">
+			 <!-- Title -->
+			 <h2><asp:ContentPlaceHolder ID="Title" runat="server">
+                
+            </asp:ContentPlaceHolder>				
+		    </h2>	
+		    <!-- Title -->
+		    
+		    <!-- Body -->
+		      <asp:ContentPlaceHolder ID="Body" runat="server">
+                
+                    
+                
+                    </asp:ContentPlaceHolder>
+		    <!-- Body -->
+		</div>
+		
+	
+		 <!-- Footer -->
+	
+		  <!-- Footer -->
+	</div>
+    </form>
+</body>
+</html>
