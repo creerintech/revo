@@ -87,7 +87,7 @@ else
     </td></tr>
     
 <tr>
-<td class="LabeLog"> User Namegfdg :</td>
+<td class="LabeLog"> User Name :</td>
 <td>
 <asp:TextBox ID="TxtUserName" runat="server" Width="200px" CssClass="TextBoxLOGIN" Height="20px" onkeyup="ClickDoneBtn40();"></asp:TextBox>
 <ajax:RoundedCornersExtender ID="RoundedCornersExtender4" runat="server" TargetControlID="TxtUserName" Corners="All" Radius="8" BorderColor="Gray"></ajax:RoundedCornersExtender>          
@@ -115,7 +115,7 @@ WarningIconImageUrl="~/Images/Icon/Warning.png">
 </td>
 </tr>
 <tr>
-<td class="LabeLog"> Passworderef :</td>
+<td class="LabeLog"> Password :</td>
 <td>
 <asp:TextBox ID="TxtPass" runat="server" Width="200px" TextMode="Password" Height="20px" CssClass="TextBoxLOGIN" ></asp:TextBox>
 <ajax:RoundedCornersExtender ID="RoundedCornersExtender1" runat="server" TargetControlID="TxtPass" Corners="All" Radius="8" BorderColor="Gray"></ajax:RoundedCornersExtender>          
