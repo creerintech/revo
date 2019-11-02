@@ -87,7 +87,7 @@ else
     </td></tr>
     
 <tr>
-<td class="LabeLog"> User Nameaaaa :</td>
+<td class="LabeLog"> User Name:</td>
 <td>
 <asp:TextBox ID="TxtUserName" runat="server" Width="200px" CssClass="TextBoxLOGIN" Height="20px" onkeyup="ClickDoneBtn40();"></asp:TextBox>
 <ajax:RoundedCornersExtender ID="RoundedCornersExtender4" runat="server" TargetControlID="TxtUserName" Corners="All" Radius="8" BorderColor="Gray"></ajax:RoundedCornersExtender>          
